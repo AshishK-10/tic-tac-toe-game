@@ -2,23 +2,24 @@ import React, { useEffect, useRef, useState } from 'react'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-function Grid({gridSize, choice, insert, checkForWin, isGridFull, resetGrid, setGridReset}) {
 
+function resetArray(gridSize){
   let initialMatrix = [];
   for(let i = 0; i < gridSize; ++i){
     initialMatrix[i] = new Array(gridSize);
     for(let j = 0; j < gridSize; ++j) initialMatrix[i][j] = -1;
   }
+  return initialMatrix;
+}
 
+function Grid({gridSize, choice, insert, checkForWin, isGridFull, resetGrid, setGridReset}) {
+
+  let initialMatrix = resetArray(gridSize);
   const [matrix, setMatrix] = useState(initialMatrix);
   const currWinner = useRef(-1);
 
   useEffect(()=>{
-    let initialMatrix = [];
-    for(let i = 0; i < gridSize; ++i){
-      initialMatrix[i] = new Array(gridSize);
-      for(let j = 0; j < gridSize; ++j) initialMatrix[i][j] = -1;
-    }
+    let initialMatrix = resetArray(gridSize);
     setMatrix(initialMatrix);
   }, [gridSize])
 
